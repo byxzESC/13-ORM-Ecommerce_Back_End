@@ -4,9 +4,19 @@ const { Product, Category, Tag, ProductTag } = require('../../models');
 // The `/api/products` endpoint
 
 // get all products
-router.get('/', (req, res) => {
+router.get('/', async (req, res) => {
   // find all products
   // be sure to include its associated Category and Tag data
+  try {
+    const products = await Product.findAll({
+      include: [{Category, Tag}]
+    })
+    res.status(200).json(products);
+  } catch (err) {
+    console.log(err);
+    res.status(400).json(err);
+  }
+
 });
 
 // get one product
@@ -89,8 +99,18 @@ router.put('/:id', (req, res) => {
     });
 });
 
-router.delete('/:id', (req, res) => {
+router.delete('/:id', async (req, res) => {
   // delete one product by its `id` value
+  try {
+    const product = await Product.findByPk(req.params.id);
+    if (!product) {
+      return res.status(404).send('Category not found');
+    }
+    await product.destroy(req.body);
+    res.json(product);
+  } catch (err) {
+    return res.status(500).send(err);
+  }
 });
 
 module.exports = router;
