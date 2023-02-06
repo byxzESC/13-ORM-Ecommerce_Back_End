@@ -24,7 +24,7 @@ router.get('/:id', async (req, res) => {
     if (!categoryById) {
       return res.status(404).send('Category not found');
     }
-    res.json(categoryById);
+    res.status(200).json(categoryById);
   } catch (err) {
     return res.status(500).json(err);
   }
@@ -72,7 +72,7 @@ router.delete('/:id', async (req, res) => {
     if (!categoryById) {
       return res.status(404).send('categoryById not found');
     }
-    await categoryById.destroy({
+    await Category.destroy({
       where: {
         id: categoryById.id
       }
