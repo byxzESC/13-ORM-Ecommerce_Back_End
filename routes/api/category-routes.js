@@ -3,16 +3,16 @@ const { Category, Product } = require('../../models');
 
 // The `/api/categories` endpoint
 
-router.get('/', async(req, res) => {
+router.get('/', async (req, res) => {
   // find all categories
   // be sure to include its associated Products
   try {
     const categoryData = await Category.findAll({
-      include: [{Product}]
+      include: [{model: Product}]
     });
-    res.json(categoryData);
+    return res.json(categoryData);
   } catch (err) {
-    res.status(500).json(err);
+    return res.status(500).json(err);
   }
 });
 
@@ -20,13 +20,13 @@ router.get('/:id', async (req, res) => {
   // find one category by its `id` value
   // be sure to include its associated Products
   try {
-    const category = await Category.findByPk(req.params.id);
-    if (!category) {
+    const categoryById = await Category.findByPk(req.params.id);
+    if (!categoryById) {
       return res.status(404).send('Category not found');
     }
-    res.json(category);
+    res.json(categoryById);
   } catch (err) {
-    return res.status(500).send(err);
+    return res.status(500).json(err);
   }
 });
 
@@ -35,40 +35,51 @@ router.post('/', async (req, res) => {
   console.log("new category added:")
   console.log(req.body);
   try {
-    const categoryCreation = await Category.create({
-      category_name: req.body
+    const newCategory = await Category.create({
+      category_name: req.body.category_name
     })
-    res.json(categoryCreation);
+    res.status(200).send(`Category name: ${newCategory.category_name} has been added to the database.`);
   } catch (err) {
-    res.status(500).json(err);
+    return res.status(500).json(err);
   }
 });
 
 router.put('/:id', async (req, res) => {
   // update a category by its `id` value
   try {
-    const category = await Category.findByPk(req.params.id);
-    if (!category) {
+    const categoryById = await Category.findByPk(req.params.id);
+    if (!categoryById) {
       return res.status(404).send('Category not found');
     }
-    await category.update(req.body);
-    res.json(category);
+    await Category.update({ 
+      category_name: req.body.category_name
+    }, 
+    { 
+      where: {
+          id: categoryById.id
+        } 
+    });
+  res.status(200).send(`Category name updated to ${req.body.category_name}`);
   } catch (err) {
-    return res.status(500).send(err);
+    return res.status(500).json(err);
   }
 });
 
 router.delete('/:id', async (req, res) => {
   // delete a category by its `id` value
   try {
-    const category = await Category.findByPk(req.params.id);
-    if (!category) {
-      return res.status(404).send('Category not found');
+    const categoryById = await Category.findByPk(req.params.id);
+    if (!categoryById) {
+      return res.status(404).send('categoryById not found');
     }
-    await category.destroy(req.body);
-    res.json(category);
+    await categoryById.destroy({
+      where: {
+        id: categoryById.id
+      }
+    })
+    res.status(200).send(`The category ${categoryById.category_name} has been deleted!`);
   } catch (err) {
-    return res.status(500).send(err);
+    return res.status(500).json(err);
   }
 });
 
