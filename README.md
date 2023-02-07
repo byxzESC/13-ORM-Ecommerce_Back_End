@@ -1,20 +1,22 @@
 # 13-ORM-Ecommerce_Back_End
 
 ![js badge](https://img.shields.io/badge/TECHOLOGY-JAVASCRIPT%20ES6-orange)
-![js badge](https://img.shields.io/badge/NPM-INQUIRER.JS%20@8.2.4-orange)
-![npm mySQL2](https://img.shields.io/badge/NPM-MYSQL2%20@2.3.3-orange)
 ![node.js badge](https://img.shields.io/badge/TECHOLOGY-NODE.JS%20V16-success)
-![nodemon](https://img.shields.io/badge/TECHOLOGY-NODEMON%20@2.0.20-success)
-![mySQL](https://img.shields.io/badge/TECHOLOGY-MYSQL-blue)
-![Insomnia](https://img.shields.io/badge/TECHOLOGY-INSOMNIA-blueviolet)
+![express badge](https://img.shields.io/badge/TECHOLOGY-EXPRESS%20@4.18.2-success)
+![npm mySQL2 badge](https://img.shields.io/badge/NPM-MYSQL2%20@2.3.3-orange)
+![nodemon badge](https://img.shields.io/badge/TECHOLOGY-NODEMON%20@2.0.20-red)
+![mySQL badge](https://img.shields.io/badge/TECHOLOGY-MYSQL-blue)
+![dotenv badge](https://img.shields.io/badge/TECHOLOGY-DOTENV%20@8.6.0-blue)
+![Insomnia badge](https://img.shields.io/badge/TECHOLOGY-INSOMNIA-blueviolet)
+
 
 ## Description
 
-    It is an employee tracker that allows user to add, update, and view employees. 
-    Category for each employees are their name, title, department, salary, and manager.
+    This is a simple database for an e-commerce back end of a website. 
+    User able use this app to read, create, update, or delete to manager their
+    back end data base on categories, products, or tags tables.
 
-    Entering your employee's information and this tracker will generate a database using
-    provided information.      
+Here is a [Demonstration video](https://drive.google.com/file/d/1LlmioJyJ81Lq18I0l_CtNJmViEBJCOP1/view)
 
 ## Table of Contents (Optional)
 
@@ -33,13 +35,19 @@ To install necessary dependencies, run the following command:
 
 ## Usage
 
-Here is the [Demonstration video](https://drive.google.com/file/d/1fB5f8p_esXW1X0kt0rkwiPkTqhVjifg4/view)
+Step 1: create a database using schema.sql in db folder with following command in your sql terminal:
 
-Step1: run following command in your terminal:
+    source ./db/schema.sql;
 
-    node index.js
+Step 2: could use seeds folder for experimenting functions with following command in your terminal:
 
-step 2: type in your information to the prompt
+    node ./seeds/index.js
+
+Step 3: run following command in your terminal:
+
+    node server.js
+
+step 4: use insomnia software or as such to manage the date base
 
 example:
 

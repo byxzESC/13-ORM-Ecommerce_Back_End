@@ -30,7 +30,10 @@ router.get('/:id', async (req, res) => {
       },
       include: [{
         model: Category,
-        model: Tag
+        model: Tag,
+        through: {
+          attributes: []
+        }
       }]
     });
     if (!productData) {
@@ -43,7 +46,7 @@ router.get('/:id', async (req, res) => {
 });
 
 // create new product
-router.post('/', async (req, res) => {
+router.post('/', (req, res) => {
   /* req.body should look like this...
     {
       product_name: "Basketball",
