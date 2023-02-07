@@ -13,6 +13,11 @@ app.use(routes);
 
 // Acceptance Criteria --- WHEN I enter the command to invoke the application
 // THEN my server is started and the Sequelize models are synced to the MySQL database
+
 sequelize.sync({ force: false }).then(() => {
   app.listen(PORT, () => console.log('Now listening'));
 });
+
+// Acceptance Criteria --- WHEN I enter schema and seed commands
+// THEN a development database is created and is seeded with test data
+// node ./seeds/index.js
